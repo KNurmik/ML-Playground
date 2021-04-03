@@ -12,10 +12,11 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
-        'jax',
+        'autograd',
         'pandas',
         'matplotlib',
-        'torch'
+        'torch',
+        'tqdm'
     ],
     packages=setuptools.find_packages(),
     classifiers=[
