@@ -1,5 +1,7 @@
 # Model Documentation
 
+Use the directory button at the top-left corner of this README to easily navigate to the relevant models and parts.
+
 ## Linear Regression
 A least-squares linear regression model.
 
