@@ -9,4 +9,3 @@ def l1_reg(params, lambd):
 def l2_reg(params, lambd):
     """L2 regularization."""
     return lambd * np.sum(np.square(params))
-

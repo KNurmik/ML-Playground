@@ -29,12 +29,17 @@ class LinearRegression:
             else:
                 raise NotImplementedError
 
-    def predict(self, params, X):
+    def predict(self, X, params=None):
+        if params is None:
+            params = np.concatenate((self.weights, self.bias.reshape(1,)), axis=0)
+            ones = np.ones((X.shape[0], 1))
+            X = np.concatenate((X, ones), axis=1)
+
         return np.dot(X, params)
 
     def prediction_loss(self, params, X, y):
         """Unregularized loss."""
-        preds = self.predict(params, X)
+        preds = self.predict(X, params)
         return np.mean(np.square(preds - y))
 
     def reg_loss(self, params, lambd):
@@ -93,7 +98,6 @@ class LinearRegression:
         if val_X is not None:
             print("Final validation loss: {}".format(val_error))
 
-
     def plot_training(self):
         """Plot the training and validation (if exists) errors during training."""
         idx = [i for i in range(len(self.train_errors))]
@@ -106,4 +110,3 @@ class LinearRegression:
         plt.title("Linear Regression Training Progress")
         plt.legend()
         plt.show()
-
