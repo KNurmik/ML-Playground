@@ -49,11 +49,11 @@ class LogisticRegression:
             X = self._compose_inputs(X)
         return self._sigmoid(np.dot(X, params))
 
-    def log_bernoulli(self, y, p):
+    def _log_bernoulli(self, y, p):
         return np.mean(y * np.log(p) + (1.0 - y) * np.log(1.0 - p))
 
     def _prediction_loss(self, params, X, y):
-        return -self.log_bernoulli(y, self.predict(X, params))
+        return -self._log_bernoulli(y, self.predict(X, params))
 
     def _reg_loss(self, params, lambd):
         """Regularization loss. See utils.regularization.py."""
@@ -64,7 +64,9 @@ class LogisticRegression:
     def loss(self, params, X, y, lambd):
         return self._prediction_loss(params, X, y) + self._reg_loss(params, lambd)
 
-    def get_accuracy(self, params, X, y, threshold=0.5):
+    def get_accuracy(self, X, y, params=None, threshold=0.5):
+        if params is None:
+            params = self._compose_params()
         preds = self.predict(X, params) >= threshold
         return np.sum(preds == y) / y.shape[0]
 
@@ -76,7 +78,7 @@ class LogisticRegression:
         :param lambd: Regularization parameter lambda
         :param epochs: Number of epochs to train for
         :param lr: Training learning rate
-        :param threshold:
+        :param threshold: Probability threshold used for positive classification
         :param val_X: Validation inputs
         :param val_y: Validation targets
         :param init_scale: Scale factor for randomly initializing weights
@@ -99,14 +101,14 @@ class LogisticRegression:
         for i in tqdm(range(epochs)):
             params -= lr * grad(self.loss)(params, X, y, lambd)
             train_error = self.loss(params, X, y, lambd)
-            train_acc = self.get_accuracy(params, X, y, threshold)
+            train_acc = self.get_accuracy(X, y, params, threshold)
 
             self.train_errors.append(train_error)
             self.train_accs.append(train_acc)
 
             if val_X is not None:
                 val_error = self.loss(params, val_X, val_y, lambd)
-                val_acc = self.get_accuracy(params, val_X, val_y, threshold)
+                val_acc = self.get_accuracy(val_X, val_y, params, threshold)
 
                 self.val_errors.append(val_error)
                 self.val_accs.append(val_acc)
