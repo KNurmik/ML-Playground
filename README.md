@@ -1,7 +1,7 @@
 # ML-Playground
 Implementing machine learning and statistical models from scratch using NumPy and PyTorch.
 
-See 'models' folder for detailed documentation on usage.
+See `models` folder for detailed documentation on usage.
 
 Currently implemented models:
 - Linear Regression
