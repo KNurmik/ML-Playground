@@ -6,6 +6,7 @@ See `models` folder for detailed documentation on usage.
 Currently implemented models:
 - Linear Regression
 - Logistic Regression
+- Probabilistic Matrix Factorization
 
 
 # Setup
