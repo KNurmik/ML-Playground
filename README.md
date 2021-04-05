@@ -1,4 +1,4 @@
-# ML-Playground
+# Machine Learning Playground
 Implementing machine learning and statistical models from scratch using NumPy and PyTorch.
 
 See [`models`](https://github.com/KNurmik/ML-Playground/tree/main/models) folder for detailed documentation on usage.
